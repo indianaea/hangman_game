@@ -2,44 +2,44 @@ import 'dart:io';
 import 'dart:math';
 
 void main() {
-  final List<String> words = ['apple', 'banana', 'cherry', 'durian', 'elderberry'];
+  final List<String> words = ['epli', 'banani', 'sól', 'bíll', 'ullarsokkur'];
   final Random random = Random();
   final String selectedWord = words[random.nextInt(words.length)];
   List<String> guessedLetters = [];
   int attemptsLeft = 6;
 
-  print('Welcome to Hangman!');
-  print('The word contains ${selectedWord.length} letters.');
+  print('Velkomin í Hengimann!');
+  print('Lengd orðsins er: ${selectedWord.length} stafir.');
 
   while (attemptsLeft > 0) {
-    print('Attempts Left: $attemptsLeft');
-    print('Word: ${getVisibleWord(selectedWord, guessedLetters)}');
-    print('Enter your guess:');
-    final String guess = stdin.readLineSync().trim().toLowerCase();
+    print('Líf eftir: $attemptsLeft');
+    print('Orðið: ${getVisibleWord(selectedWord, guessedLetters)}');
+    print('Giskaðu á það:');
+    final String guess = stdin.readLineSync()?.toLowerCase() ?? '';
 
     if (guess.length != 1) {
-      print('Please enter a single letter.');
+      print('Settu inn einn staf.');
       continue;
     }
 
     if (guessedLetters.contains(guess)) {
-      print('You have already guessed that letter.');
+      print('Þú ert nú þegar búin að giska á þennan staf.');
       continue;
     }
 
     guessedLetters.add(guess);
 
     if (selectedWord.contains(guess)) {
-      print('Correct guess!');
+      print('Rétt gisk!');
       if (checkWin(selectedWord, guessedLetters)) {
-        print('Congratulations! You won!');
+        print('Til hamingju þú vannst!');
         break;
       }
     } else {
-      print('Wrong guess!');
+      print('Rangt gisk!');
       attemptsLeft--;
       if (attemptsLeft == 0) {
-        print('Game over! You lost. The word was $selectedWord');
+        print('Leik lokið! Þú tapaðir því miður. Orðið var: $selectedWord');
       }
     }
   }
