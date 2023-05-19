@@ -35,7 +35,7 @@ class _HomeAppState extends State<HomeApp> {
   // Listi af orðum fyrir leikinn
   List<String> words = ['Epli', 'Banani', 'Sól', 'Bíll', 'Sokkur', 'Hamar', 'Kiwi'];
 
-  // Randomly selected word for the game
+  // Setjum random orðið okkar í streng
   String word = ''.toUpperCase();
 
   @override
@@ -68,8 +68,8 @@ class _HomeAppState extends State<HomeApp> {
           Center(
             child: Stack(
               children: [
-                //Setjum upp útlitið fyrir hengimann
-                //Bætum myndunum inn í appið
+                // Setjum upp útlitið fyrir hengimann
+                // Bætum myndunum inn í appið fyrir það
                 hangmanPhoto(
                     buildHangman.tries >= 0, 'assets/hangman_start.png'),
                 hangmanPhoto(buildHangman.tries >= 1, 'assets/hangman_1.png'),
@@ -82,9 +82,9 @@ class _HomeAppState extends State<HomeApp> {
             ),
           ),
 
-          //Smíðum núna widget fyrir földnu orðin
-          //Förum aftur í að byggja hengimaninn og bætum við breytu þar til að geyma
-          //staf og athuga hvort sá stafur sé í orðinu
+          // Smíðum núna widget fyrir földnu orðin
+          // Förum aftur í að byggja hengimaninn og bætum við breytu þar til að geyma
+          // staf og athuga hvort sá stafur sé í orðinu sem verið er að spila með
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: word
@@ -94,7 +94,7 @@ class _HomeAppState extends State<HomeApp> {
                 .toList(),
           ),
 
-          //Setjum núna upp lyklaborðið
+          // Setjum núna upp lyklaborðið með hjálp frá alphabet skránni
           SizedBox(
             width: double.infinity,
             height: 240.0,
