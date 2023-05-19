@@ -6,19 +6,21 @@ Widget letter(String character, bool hidden) {
   return Container(
     height: 65,
     width: 50,
-    padding: EdgeInsets.all(12.0),
+    padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       color: appColors.primaryColorDark,
-      borderRadius: BorderRadius.circular(4.0),
+      borderRadius: BorderRadius.circular(20.0),
     ),
     child: Visibility(
       visible: !hidden,
-      child: Text(
-        character,
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 40.0,
+      child: Center(
+        child: Text(
+          character,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 36.0,
+          ),
         ),
       ),
     ),

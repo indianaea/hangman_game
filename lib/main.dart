@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hangman_game/UI/colors.dart';
-import 'package:hangman_game/UI/widget/hangman_photo.dart';
+import 'package:hangman_game/UI/widgets/hangman_photo.dart';
 import 'package:hangman_game/UX/build_hangman.dart';
+import 'package:hangman_game/UI/widgets/letters.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +31,61 @@ class HomeApp extends StatefulWidget {
 }
 
 class _HomeAppState extends State<HomeApp> {
+  // List of words for the game
+  List<String> words = ['Epli', 'banani', 'sól', 'bíll', 'sokkur'];
+
+  // Randomly selected word for the game
+  String word = ''.toUpperCase();
+
+  //Búum til stafróið til að sýna það framan á skjánum
+  List<String> icelandic_alphabet = [
+    'A',
+    'Á',
+    'B',
+    'D',
+    'Ð',
+    'E',
+    'É',
+    'F',
+    'G',
+    'H',
+    'I',
+    'Í',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'O',
+    'Ó',
+    'P',
+    'R',
+    'S',
+    'T',
+    'U',
+    'Ú',
+    'V',
+    'X',
+    'Y',
+    'Ý',
+    'Þ',
+    'Æ',
+    'Ö',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    // Veljum random orð úr listanum okkar
+    word = getRandomWord(words).toUpperCase();
+  }
+  //
+  String getRandomWord(List<String> words) {
+    Random random = Random();
+    int randomIndex = random.nextInt(words.length);
+    return words[randomIndex];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +97,7 @@ class _HomeAppState extends State<HomeApp> {
         backgroundColor: appColors.primaryColor,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
@@ -48,7 +105,8 @@ class _HomeAppState extends State<HomeApp> {
               children: [
                 //Setjum upp útlitið fyrir hengimann
                 //Bætum myndunum inn í appið
-                hangmanPhoto(buildHangman.tries >= 0, 'assets/hangman_start.png'),
+                hangmanPhoto(
+                    buildHangman.tries >= 0, 'assets/hangman_start.png'),
                 hangmanPhoto(buildHangman.tries >= 1, 'assets/hangman_1.png'),
                 hangmanPhoto(buildHangman.tries >= 2, 'assets/hangman_2.png'),
                 hangmanPhoto(buildHangman.tries >= 3, 'assets/hangman_3.png'),
@@ -58,12 +116,56 @@ class _HomeAppState extends State<HomeApp> {
               ],
             ),
           ),
-          SizedBox(height: 20,
-          ),
+
           //Smíðum núna widget fyrir földnu orðin
+          //Förum aftur í að byggja hengimaninn og bætum við breytu þar til að geyma
+          //staf og athuga hvort sá stafur sé í orðinu
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [],
+            children: word
+                .split('')
+                .map((e) => letter(e.toUpperCase(),
+                    !buildHangman.guessedLetters.contains(e.toUpperCase())))
+                .toList(),
+          ),
+
+          //Setjum núna upp lyklaborðið
+          SizedBox(
+            width: double.infinity,
+            height: 240.0,
+            child: GridView.count(
+              crossAxisCount: 8,
+              mainAxisSpacing: 8.0,
+              crossAxisSpacing: 8.0,
+              padding: EdgeInsets.all(8.0),
+              children: icelandic_alphabet.map((e) {
+                return RawMaterialButton(
+                  onPressed: buildHangman.guessedLetters.contains(e) ? null : () {
+                    setState(() {
+                      buildHangman.guessedLetters.add(e);
+                      print(buildHangman.guessedLetters);
+                      if (!word.split('').contains(e.toUpperCase())) {
+                        buildHangman.tries++;
+                      }
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: Text(
+                    e,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  fillColor: buildHangman.guessedLetters.contains(e)
+                      ? Colors.black87
+                      : Colors.blueGrey,
+                );
+              }).toList(),
+            ),
           ),
         ],
       ),
