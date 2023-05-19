@@ -4,8 +4,8 @@ import 'package:hangman_game/UI/colors.dart';
 
 Widget letter(String character, bool hidden) {
   return Container(
-    height: 65,
-    width: 50,
+    height: 55,
+    width: 45,
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       color: appColors.primaryColorDark,
@@ -19,7 +19,7 @@ Widget letter(String character, bool hidden) {
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 36.0,
+            fontSize: 28.0,
           ),
         ),
       ),

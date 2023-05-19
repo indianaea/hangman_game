@@ -6,6 +6,7 @@ import 'package:hangman_game/UI/colors.dart';
 import 'package:hangman_game/UI/widgets/hangman_photo.dart';
 import 'package:hangman_game/UX/build_hangman.dart';
 import 'package:hangman_game/UI/widgets/letters.dart';
+import 'package:hangman_game/UX/alphabet.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,47 +32,11 @@ class HomeApp extends StatefulWidget {
 }
 
 class _HomeAppState extends State<HomeApp> {
-  // List of words for the game
-  List<String> words = ['Epli', 'banani', 'sól', 'bíll', 'sokkur'];
+  // Listi af orðum fyrir leikinn
+  List<String> words = ['Epli', 'Banani', 'Sól', 'Bíll', 'Sokkur', 'Hamar', 'Kiwi'];
 
   // Randomly selected word for the game
   String word = ''.toUpperCase();
-
-  //Búum til stafróið til að sýna það framan á skjánum
-  List<String> icelandic_alphabet = [
-    'A',
-    'Á',
-    'B',
-    'D',
-    'Ð',
-    'E',
-    'É',
-    'F',
-    'G',
-    'H',
-    'I',
-    'Í',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'Ó',
-    'P',
-    'R',
-    'S',
-    'T',
-    'U',
-    'Ú',
-    'V',
-    'X',
-    'Y',
-    'Ý',
-    'Þ',
-    'Æ',
-    'Ö',
-  ];
 
   @override
   void initState() {
@@ -138,7 +103,7 @@ class _HomeAppState extends State<HomeApp> {
               mainAxisSpacing: 8.0,
               crossAxisSpacing: 8.0,
               padding: EdgeInsets.all(8.0),
-              children: icelandic_alphabet.map((e) {
+              children: setupAlphabet.icelandic_alphabet.map((e) {
                 return RawMaterialButton(
                   onPressed: buildHangman.guessedLetters.contains(e) ? null : () {
                     setState(() {
