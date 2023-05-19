@@ -33,7 +33,15 @@ class HomeApp extends StatefulWidget {
 
 class _HomeAppState extends State<HomeApp> {
   // Listi af orðum fyrir leikinn
-  List<String> words = ['Epli', 'Banani', 'Sól', 'Bíll', 'Sokkur', 'Hamar', 'Kiwi'];
+  List<String> words = [
+    'Epli',
+    'Banani',
+    'Sól',
+    'Bíll',
+    'Sokkur',
+    'Hamar',
+    'Kiwi'
+  ];
 
   // Setjum random orðið okkar í streng
   String word = ''.toUpperCase();
@@ -44,6 +52,7 @@ class _HomeAppState extends State<HomeApp> {
     // Veljum random orð úr listanum okkar
     word = getRandomWord(words).toUpperCase();
   }
+
   //
   String getRandomWord(List<String> words) {
     Random random = Random();
@@ -56,7 +65,13 @@ class _HomeAppState extends State<HomeApp> {
     return Scaffold(
       backgroundColor: appColors.primaryColor,
       appBar: AppBar(
-        title: Text('Hengimaður'),
+        title: Text(
+          'Hengimaður',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24.0,
+          ),
+        ),
         elevation: 0,
         centerTitle: true,
         backgroundColor: appColors.primaryColor,
@@ -105,17 +120,19 @@ class _HomeAppState extends State<HomeApp> {
               padding: EdgeInsets.all(8.0),
               children: setupAlphabet.icelandic_alphabet.map((e) {
                 return RawMaterialButton(
-                  onPressed: buildHangman.guessedLetters.contains(e) ? null : () {
-                    setState(() {
-                      buildHangman.guessedLetters.add(e);
-                      print(buildHangman.guessedLetters);
-                      if (!word.split('').contains(e.toUpperCase())) {
-                        buildHangman.tries++;
-                      }
-                    });
-                  },
+                  onPressed: buildHangman.guessedLetters.contains(e)
+                      ? null
+                      : () {
+                          setState(() {
+                            buildHangman.guessedLetters.add(e);
+                            print(buildHangman.guessedLetters);
+                            if (!word.split('').contains(e.toUpperCase())) {
+                              buildHangman.tries++;
+                            }
+                          });
+                        },
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.0),
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
                   child: Text(
                     e,
