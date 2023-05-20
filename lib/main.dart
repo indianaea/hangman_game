@@ -7,6 +7,7 @@ import 'package:hangman_game/UI/widgets/hangman_photo.dart';
 import 'package:hangman_game/UX/build_hangman.dart';
 import 'package:hangman_game/UI/widgets/letters.dart';
 import 'package:hangman_game/UX/alphabet.dart';
+import 'package:hangman_game/start_game_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeApp(),
+      home: const StartScreen(),
     );
   }
 }
@@ -53,11 +54,88 @@ class _HomeAppState extends State<HomeApp> {
     word = getRandomWord(words).toUpperCase();
   }
 
-  //
   String getRandomWord(List<String> words) {
     Random random = Random();
     int randomIndex = random.nextInt(words.length);
     return words[randomIndex];
+  }
+
+  // prufa
+  Widget _buildGameContent() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Center(
+          child: Stack(
+            children: [
+              // Setjum upp útlitið fyrir hengimann
+              // Bætum myndunum inn í appið fyrir það
+              hangmanPhoto(buildHangman.tries >= 0, 'assets/hangman_start.png'),
+              hangmanPhoto(buildHangman.tries >= 1, 'assets/hangman_1.png'),
+              hangmanPhoto(buildHangman.tries >= 2, 'assets/hangman_2.png'),
+              hangmanPhoto(buildHangman.tries >= 3, 'assets/hangman_3.png'),
+              hangmanPhoto(buildHangman.tries >= 4, 'assets/hangman_4.png'),
+              hangmanPhoto(buildHangman.tries >= 5, 'assets/hangman_5.png'),
+              hangmanPhoto(buildHangman.tries >= 6, 'assets/hangman_all.png'),
+            ],
+          ),
+        ),
+
+        // Smíðum núna widget fyrir földnu orðin
+        // Förum aftur í að byggja hengimaninn og bætum við breytu þar til að geyma
+        // staf og athuga hvort sá stafur sé í orðinu sem verið er að spila með
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: word
+              .split('')
+              .map((e) => letter(e.toUpperCase(),
+                  !buildHangman.guessedLetters.contains(e.toUpperCase())))
+              .toList(),
+        ),
+
+        // Setjum núna upp lyklaborðið með hjálp frá alphabet skránni
+        SizedBox(
+          width: double.infinity,
+          height: 240.0,
+          child: GridView.count(
+            crossAxisCount: 8,
+            mainAxisSpacing: 8.0,
+            crossAxisSpacing: 8.0,
+            padding: EdgeInsets.all(8.0),
+            children: setupAlphabet.icelandic_alphabet.map((e) {
+              return RawMaterialButton(
+                onPressed: buildHangman.guessedLetters.contains(e)
+                    ? null
+                    : () {
+                        setState(() {
+                          buildHangman.guessedLetters.add(e);
+                          print(buildHangman.guessedLetters);
+                          if (!word.split('').contains(e.toUpperCase())) {
+                            buildHangman.tries++;
+                          }
+                        });
+                      },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                child: Text(
+                  e,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                fillColor: buildHangman.guessedLetters.contains(e)
+                    ? Colors.black87
+                    : Colors.blueGrey,
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+    );
   }
 
   @override
@@ -76,81 +154,7 @@ class _HomeAppState extends State<HomeApp> {
         centerTitle: true,
         backgroundColor: appColors.primaryColor,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Center(
-            child: Stack(
-              children: [
-                // Setjum upp útlitið fyrir hengimann
-                // Bætum myndunum inn í appið fyrir það
-                hangmanPhoto(
-                    buildHangman.tries >= 0, 'assets/hangman_start.png'),
-                hangmanPhoto(buildHangman.tries >= 1, 'assets/hangman_1.png'),
-                hangmanPhoto(buildHangman.tries >= 2, 'assets/hangman_2.png'),
-                hangmanPhoto(buildHangman.tries >= 3, 'assets/hangman_3.png'),
-                hangmanPhoto(buildHangman.tries >= 4, 'assets/hangman_4.png'),
-                hangmanPhoto(buildHangman.tries >= 5, 'assets/hangman_5.png'),
-                hangmanPhoto(buildHangman.tries >= 6, 'assets/hangman_all.png'),
-              ],
-            ),
-          ),
-
-          // Smíðum núna widget fyrir földnu orðin
-          // Förum aftur í að byggja hengimaninn og bætum við breytu þar til að geyma
-          // staf og athuga hvort sá stafur sé í orðinu sem verið er að spila með
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: word
-                .split('')
-                .map((e) => letter(e.toUpperCase(),
-                    !buildHangman.guessedLetters.contains(e.toUpperCase())))
-                .toList(),
-          ),
-
-          // Setjum núna upp lyklaborðið með hjálp frá alphabet skránni
-          SizedBox(
-            width: double.infinity,
-            height: 240.0,
-            child: GridView.count(
-              crossAxisCount: 8,
-              mainAxisSpacing: 8.0,
-              crossAxisSpacing: 8.0,
-              padding: EdgeInsets.all(8.0),
-              children: setupAlphabet.icelandic_alphabet.map((e) {
-                return RawMaterialButton(
-                  onPressed: buildHangman.guessedLetters.contains(e)
-                      ? null
-                      : () {
-                          setState(() {
-                            buildHangman.guessedLetters.add(e);
-                            print(buildHangman.guessedLetters);
-                            if (!word.split('').contains(e.toUpperCase())) {
-                              buildHangman.tries++;
-                            }
-                          });
-                        },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  child: Text(
-                    e,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  fillColor: buildHangman.guessedLetters.contains(e)
-                      ? Colors.black87
-                      : Colors.blueGrey,
-                );
-              }).toList(),
-            ),
-          ),
-        ],
-      ),
+      body: _buildGameContent(),
     );
   }
 }
