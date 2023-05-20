@@ -62,6 +62,8 @@ class _HomeAppState extends State<HomeApp> {
 
   // prufa
   Widget _buildGameContent() {
+    int remainingLives = buildHangman.maxTries - buildHangman.tries;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,6 +94,16 @@ class _HomeAppState extends State<HomeApp> {
               .map((e) => letter(e.toUpperCase(),
                   !buildHangman.guessedLetters.contains(e.toUpperCase())))
               .toList(),
+        ),
+
+        // Setja fram þau líf sem leikmaður á eftir
+        Text(
+          'Þú átt: $remainingLives líf eftir',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20.0,
+            fontWeight: FontWeight.normal,
+          ),
         ),
 
         // Setjum núna upp lyklaborðið með hjálp frá alphabet skránni

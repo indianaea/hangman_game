@@ -7,7 +7,7 @@ class StartScreen extends StatelessWidget {
   const StartScreen({Key? key}) : super(key: key);
 
   void _selectPlayGame(BuildContext context) {
-    // Reset the game state
+    // Resetta leikinn þegar ýtt er aftur á takkann "Spila leik"
     buildHangman.tries = 0;
     buildHangman.guessedLetters.clear();
 
@@ -35,7 +35,7 @@ class StartScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Velkominn í Hengimað',
+              'Velkominn í leikinn Hengimann!',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
