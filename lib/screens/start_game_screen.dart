@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hangman_game/UI/colors.dart';
 import 'package:hangman_game/main.dart';
 import 'package:hangman_game/UX/build_hangman.dart';
+import 'package:hangman_game/screens/game_screen.dart';
 
 class StartScreen extends StatelessWidget {
+  static const String id = 'StartScreen';
+
   const StartScreen({Key? key}) : super(key: key);
 
   void _selectPlayGame(BuildContext context) {
@@ -11,7 +14,8 @@ class StartScreen extends StatelessWidget {
     buildHangman.tries = 0;
     buildHangman.guessedLetters.clear();
 
-    Navigator.push(context, MaterialPageRoute(builder: (ctx) => HomeApp()));
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        GameScreen.id, (Route<dynamic> route) => false);
   }
 
   @override
