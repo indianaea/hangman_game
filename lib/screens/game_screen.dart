@@ -57,7 +57,8 @@ class _GameScreenState extends State<GameScreen> {
     return words[randomIndex];
   }
 
-  _navigateToEndScreen(BuildContext context, bool isWinner, remainingLives) async {
+  _navigateToEndScreen(
+      BuildContext context, bool isWinner, remainingLives) async {
     await Future.delayed(Duration(seconds: 1));
     _guessLetters(context, remainingLives);
 
@@ -77,8 +78,7 @@ class _GameScreenState extends State<GameScreen> {
             children: [
               // Setjum upp útlitið fyrir hengimann
               // Bætum myndunum inn í appið fyrir það
-              hangmanPhoto(
-                  buildHangman.tries >= 0, 'assets/hangman_start.png'),
+              hangmanPhoto(buildHangman.tries >= 0, 'assets/hangman_start.png'),
               hangmanPhoto(buildHangman.tries >= 1, 'assets/hangman_1.png'),
               hangmanPhoto(buildHangman.tries >= 2, 'assets/hangman_2.png'),
               hangmanPhoto(buildHangman.tries >= 3, 'assets/hangman_3.png'),
@@ -97,7 +97,7 @@ class _GameScreenState extends State<GameScreen> {
           children: word
               .split('')
               .map((e) => letter(e.toUpperCase(),
-              !buildHangman.guessedLetters.contains(e.toUpperCase())))
+                  !buildHangman.guessedLetters.contains(e.toUpperCase())))
               .toList(),
         ),
 
@@ -125,14 +125,14 @@ class _GameScreenState extends State<GameScreen> {
                 onPressed: buildHangman.guessedLetters.contains(e)
                     ? null
                     : () {
-                  setState(() {
-                    buildHangman.guessedLetters.add(e);
-                    print(buildHangman.guessedLetters);
-                    if (!word.split('').contains(e.toUpperCase())) {
-                      buildHangman.tries++;
-                    }
-                  });
-                },
+                        setState(() {
+                          buildHangman.guessedLetters.add(e);
+                          print(buildHangman.guessedLetters);
+                          if (!word.split('').contains(e.toUpperCase())) {
+                            buildHangman.tries++;
+                          }
+                        });
+                      },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16.0),
                 ),
