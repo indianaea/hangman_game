@@ -7,5 +7,4 @@ class buildHangman{
     guessedLetters.clear();
     tries = 0;
   }
-
 }

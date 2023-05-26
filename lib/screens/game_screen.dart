@@ -7,7 +7,6 @@ import 'package:hangman_game/UI/widgets/hangman_photo.dart';
 import 'package:hangman_game/UX/build_hangman.dart';
 import 'package:hangman_game/UI/widgets/letters.dart';
 import 'package:hangman_game/UX/alphabet.dart';
-import 'package:hangman_game/screens/start_game_screen.dart';
 import 'end_game_screen.dart';
 
 class EndGameParameters {
@@ -60,9 +59,8 @@ class _GameScreenState extends State<GameScreen> {
   _navigateToEndScreen(
       BuildContext context, bool isWinner, remainingLives) async {
     await Future.delayed(Duration(seconds: 1));
-    _guessLetters(context, remainingLives);
 
-    Navigator.of(context).pushNamedAndRemoveUntil(
+    await Navigator.of(context).pushNamedAndRemoveUntil(
         EndScreen.id, (Route<dynamic> route) => false,
         arguments: EndGameParameters(isWinner));
   }
@@ -165,14 +163,17 @@ class _GameScreenState extends State<GameScreen> {
         .difference(buildHangman.guessedLetters.toSet())
         .isEmpty) {
       // Leikmaður vinnur leikinn
-      _navigateToEndScreen(context, true, remainingLives);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _navigateToEndScreen(context, true, remainingLives);
+      });
     } else if (remainingLives <= 0) {
-      _navigateToEndScreen(context, false, remainingLives);
       // Leikmaður tapar leiknum
-    } else {
-      return _guessLetters(context, remainingLives);
-      // Game in progress
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _navigateToEndScreen(context, false, remainingLives);
+      });
     }
+
+    return _guessLetters(context, remainingLives);
   }
 
   @override
