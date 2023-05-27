@@ -38,6 +38,15 @@ class StartScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Transform.translate(
+              offset: Offset(0, -60.0), // Adjust the y-offset as needed
+              child: Image.asset(
+                'assets/front.png',
+                width: 400, // Adjust width as needed
+                height: 400, // Adjust height as needed
+              ),
+            ),
+            SizedBox(height: 20.0),
             Text(
               'Velkominn í leikinn Hengimann!',
               style: TextStyle(
