@@ -71,18 +71,8 @@ class _GameScreenState extends State<GameScreen> {
         Center(
           child: Stack(
             children: [
-              // Setjum upp útlitið fyrir hengimann
-              // Bætum myndunum inn í appið fyrir það
-              hangmanPhoto(BuildHangman.tries >= 0, 'assets/hangman_start.png'),
-              hangmanPhoto(BuildHangman.tries >= 1, 'assets/hangman_1.png'),
-              hangmanPhoto(BuildHangman.tries >= 2, 'assets/hangman_2.png'),
-              hangmanPhoto(BuildHangman.tries >= 3, 'assets/hangman_3.png'),
-              hangmanPhoto(BuildHangman.tries >= 4, 'assets/hangman_4.png'),
-              hangmanPhoto(BuildHangman.tries >= 5, 'assets/hangman_5.png'),
-              hangmanPhoto(BuildHangman.tries >= 6, 'assets/hangman_6.png'),
-              hangmanPhoto(BuildHangman.tries >= 7, 'assets/hangman_7.png'),
-              hangmanPhoto(BuildHangman.tries >= 8, 'assets/hangman_8.png'),
-              hangmanPhoto(BuildHangman.tries >= 9, 'assets/hangman_all.png'),
+              for (int i = 0; i <= 9; i++)
+                hangmanPhoto(BuildHangman.tries >= i, 'assets/hangman_$i.png'),
             ],
           ),
         ),
