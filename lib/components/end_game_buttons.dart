@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hangman_game/UI/colors.dart';
+import 'package:hangman_game/constants/colors.dart';
 
 
 class EndGameButton extends StatelessWidget {
@@ -30,7 +30,7 @@ class EndGameButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onTab,
         style: ElevatedButton.styleFrom(
-          backgroundColor: appColors.primaryColorDark,
+          backgroundColor: AppColors.primaryColorDark,
           foregroundColor: Colors.white,
           textStyle: TextStyle(
             fontSize: 20.0,

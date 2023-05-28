@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hangman_game/UI/colors.dart';
+import 'package:hangman_game/constants/colors.dart';
 import 'package:hangman_game/screens/game_screen.dart';
 import 'package:hangman_game/screens/start_game_screen.dart';
-import 'package:hangman_game/UX/build_hangman.dart';
-import 'package:hangman_game/components/end_game_buttons.dart';
-
-import '../main.dart';
+import 'package:hangman_game/logic/build_hangman.dart';
 
 class EndScreen extends StatelessWidget {
   static const String id = 'EndScreen';
@@ -19,8 +16,8 @@ class EndScreen extends StatelessWidget {
 
   void _resetGame(BuildContext context) async {
     // Resetta leikinn þegar ýtt er aftur á takkann "Spila leik"
-    buildHangman.tries = 0;
-    buildHangman.guessedLetters.clear();
+    BuildHangman.tries = 0;
+    BuildHangman.guessedLetters.clear();
     //print('hallóo');
 
     Future.microtask(() {
@@ -30,7 +27,6 @@ class EndScreen extends StatelessWidget {
   }
 
   void _goToStartScreen(BuildContext context) async {
-    print('blablabla');
 
     Future.microtask(() {
       Navigator.of(context).pushNamedAndRemoveUntil(
@@ -45,7 +41,7 @@ class EndScreen extends StatelessWidget {
         : 'Æi þú tapaðir! Endilega reyndu aftur!';
 
     return Scaffold(
-      backgroundColor: appColors.primaryColor,
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         title: Text(
           'Hengimaður',
@@ -56,7 +52,7 @@ class EndScreen extends StatelessWidget {
         ),
         elevation: 0,
         centerTitle: true,
-        backgroundColor: appColors.primaryColor,
+        backgroundColor: AppColors.primaryColor,
       ),
       body: Center(
         child: Column(
@@ -76,7 +72,7 @@ class EndScreen extends StatelessWidget {
                 _resetGame(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: appColors.primaryColorDark,
+                backgroundColor: AppColors.primaryColorDark,
                 foregroundColor: Colors.white,
                 textStyle: TextStyle(
                   fontSize: 20.0,
@@ -96,7 +92,7 @@ class EndScreen extends StatelessWidget {
                 _goToStartScreen(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: appColors.primaryColorDark,
+                backgroundColor: AppColors.primaryColorDark,
                 foregroundColor: Colors.white,
                 textStyle: TextStyle(
                   fontSize: 20.0,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hangman_game/UI/colors.dart';
-import 'package:hangman_game/main.dart';
-import 'package:hangman_game/UX/build_hangman.dart';
+import 'package:hangman_game/constants/colors.dart';
+import 'package:hangman_game/logic/build_hangman.dart';
 import 'package:hangman_game/screens/game_screen.dart';
 
 class StartScreen extends StatelessWidget {
@@ -11,8 +10,8 @@ class StartScreen extends StatelessWidget {
 
   void _selectPlayGame(BuildContext context) {
     // Resetta leikinn þegar ýtt er aftur á takkann "Spila leik"
-    buildHangman.tries = 0;
-    buildHangman.guessedLetters.clear();
+    BuildHangman.tries = 0;
+    BuildHangman.guessedLetters.clear();
 
     Navigator.of(context).pushNamedAndRemoveUntil(
         GameScreen.id, (Route<dynamic> route) => false);
@@ -21,7 +20,7 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appColors.primaryColor,
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         title: Text(
           'Hengimaður',
@@ -32,7 +31,7 @@ class StartScreen extends StatelessWidget {
         ),
         elevation: 0,
         centerTitle: true,
-        backgroundColor: appColors.primaryColor,
+        backgroundColor: AppColors.primaryColor,
       ),
       body: Center(
         child: Column(
@@ -61,7 +60,7 @@ class StartScreen extends StatelessWidget {
                 _selectPlayGame(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: appColors.primaryColorDark,
+                backgroundColor: AppColors.primaryColorDark,
                 foregroundColor: Colors.white,
                 textStyle: TextStyle(
                   fontSize: 20.0,

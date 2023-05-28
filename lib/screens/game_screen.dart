@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:hangman_game/UI/colors.dart';
-import 'package:hangman_game/UI/widgets/hangman_photo.dart';
-import 'package:hangman_game/UX/build_hangman.dart';
-import 'package:hangman_game/UI/widgets/letters.dart';
-import 'package:hangman_game/UX/alphabet.dart';
+import 'package:hangman_game/constants/colors.dart';
+import 'package:hangman_game/widgets/hangman_photo.dart';
+import 'package:hangman_game/logic/build_hangman.dart';
+import 'package:hangman_game/widgets/letters.dart';
+import 'package:hangman_game/constants/alphabet.dart';
 import 'end_game_screen.dart';
 
 class EndGameParameters {
@@ -66,7 +64,6 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   _guessLetters(BuildContext context, int remainingLives) {
-    print('kjfghsdfghdkgjh');
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,16 +73,16 @@ class _GameScreenState extends State<GameScreen> {
             children: [
               // Setjum upp útlitið fyrir hengimann
               // Bætum myndunum inn í appið fyrir það
-              hangmanPhoto(buildHangman.tries >= 0, 'assets/hangman_start.png'),
-              hangmanPhoto(buildHangman.tries >= 1, 'assets/hangman_1.png'),
-              hangmanPhoto(buildHangman.tries >= 2, 'assets/hangman_2.png'),
-              hangmanPhoto(buildHangman.tries >= 3, 'assets/hangman_3.png'),
-              hangmanPhoto(buildHangman.tries >= 4, 'assets/hangman_4.png'),
-              hangmanPhoto(buildHangman.tries >= 5, 'assets/hangman_5.png'),
-              hangmanPhoto(buildHangman.tries >= 6, 'assets/hangman_6.png'),
-              hangmanPhoto(buildHangman.tries >= 7, 'assets/hangman_7.png'),
-              hangmanPhoto(buildHangman.tries >= 8, 'assets/hangman_8.png'),
-              hangmanPhoto(buildHangman.tries >= 9, 'assets/hangman_all.png'),
+              hangmanPhoto(BuildHangman.tries >= 0, 'assets/hangman_start.png'),
+              hangmanPhoto(BuildHangman.tries >= 1, 'assets/hangman_1.png'),
+              hangmanPhoto(BuildHangman.tries >= 2, 'assets/hangman_2.png'),
+              hangmanPhoto(BuildHangman.tries >= 3, 'assets/hangman_3.png'),
+              hangmanPhoto(BuildHangman.tries >= 4, 'assets/hangman_4.png'),
+              hangmanPhoto(BuildHangman.tries >= 5, 'assets/hangman_5.png'),
+              hangmanPhoto(BuildHangman.tries >= 6, 'assets/hangman_6.png'),
+              hangmanPhoto(BuildHangman.tries >= 7, 'assets/hangman_7.png'),
+              hangmanPhoto(BuildHangman.tries >= 8, 'assets/hangman_8.png'),
+              hangmanPhoto(BuildHangman.tries >= 9, 'assets/hangman_all.png'),
             ],
           ),
         ),
@@ -98,7 +95,7 @@ class _GameScreenState extends State<GameScreen> {
           children: word
               .split('')
               .map((e) => letter(e.toUpperCase(),
-                  !buildHangman.guessedLetters.contains(e.toUpperCase())))
+                  !BuildHangman.guessedLetters.contains(e.toUpperCase())))
               .toList(),
         ),
 
@@ -121,22 +118,24 @@ class _GameScreenState extends State<GameScreen> {
             mainAxisSpacing: 8.0,
             crossAxisSpacing: 8.0,
             padding: EdgeInsets.all(8.0),
-            children: setupAlphabet.icelandic_alphabet.map((e) {
+            children: SetupAlphabet.icelandic_alphabet.map((e) {
               return RawMaterialButton(
-                onPressed: buildHangman.guessedLetters.contains(e)
+                onPressed: BuildHangman.guessedLetters.contains(e)
                     ? null
                     : () {
                         setState(() {
-                          buildHangman.guessedLetters.add(e);
-                          print(buildHangman.guessedLetters);
+                          BuildHangman.guessedLetters.add(e);
                           if (!word.split('').contains(e.toUpperCase())) {
-                            buildHangman.tries++;
+                            BuildHangman.tries++;
                           }
                         });
                       },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16.0),
                 ),
+                fillColor: BuildHangman.guessedLetters.contains(e)
+                    ? Colors.black87
+                    : Colors.blueGrey,
                 child: Text(
                   e,
                   style: TextStyle(
@@ -145,9 +144,6 @@ class _GameScreenState extends State<GameScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                fillColor: buildHangman.guessedLetters.contains(e)
-                    ? Colors.black87
-                    : Colors.blueGrey,
               );
             }).toList(),
           ),
@@ -158,12 +154,12 @@ class _GameScreenState extends State<GameScreen> {
 
   // prufa
   _buildGameContent(BuildContext context) {
-    int remainingLives = buildHangman.maxTries - buildHangman.tries;
+    int remainingLives = BuildHangman.maxTries - BuildHangman.tries;
 
     if (word
         .split('')
         .toSet()
-        .difference(buildHangman.guessedLetters.toSet())
+        .difference(BuildHangman.guessedLetters.toSet())
         .isEmpty) {
       // Leikmaður vinnur leikinn
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -182,7 +178,7 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appColors.primaryColor,
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         title: Text(
           'Hengimaður',
@@ -193,7 +189,7 @@ class _GameScreenState extends State<GameScreen> {
         ),
         elevation: 0,
         centerTitle: true,
-        backgroundColor: appColors.primaryColor,
+        backgroundColor: AppColors.primaryColor,
       ),
       body: _buildGameContent(context),
     );

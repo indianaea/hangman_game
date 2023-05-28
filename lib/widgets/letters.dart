@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hangman_game/UI/colors.dart';
+import 'package:hangman_game/constants/colors.dart';
 
 Widget letter(String character, bool hidden) {
   return Container(
@@ -8,7 +7,7 @@ Widget letter(String character, bool hidden) {
     width: 45,
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
-      color: appColors.primaryColorDark,
+      color: AppColors.primaryColorDark,
       borderRadius: BorderRadius.circular(20.0),
     ),
     child: Visibility(

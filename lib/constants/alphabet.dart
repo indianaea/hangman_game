@@ -1,6 +1,6 @@
 //Búum til stafróið til að sýna það framan á skjánum
 
-class setupAlphabet {
+class SetupAlphabet {
   static List<String> icelandic_alphabet = [
     'A',
     'Á',

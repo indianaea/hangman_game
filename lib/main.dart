@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hangman_game/UI/colors.dart';
-import 'package:hangman_game/UI/widgets/hangman_photo.dart';
-import 'package:hangman_game/UX/build_hangman.dart';
-import 'package:hangman_game/UI/widgets/letters.dart';
-import 'package:hangman_game/UX/alphabet.dart';
+import 'package:hangman_game/constants/colors.dart';
 import 'package:hangman_game/navigation.dart';
 import 'package:hangman_game/screens/start_game_screen.dart';
 import 'package:hangman_game/screens/game_screen.dart';
-
-
 import 'screens/end_game_screen.dart';
 
 void main() {
@@ -30,7 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         StartScreen.id: (context) => StartScreen(),
         GameScreen.id:  (context) => GameScreen(),
-        EndScreen.id:  (context) => EndScreen(isWinner: false),
+        EndScreen.id:  (context) => EndScreen(isWinner: true),
       },
       onGenerateRoute: appRouter.onGenerateRoute,
     );
@@ -40,7 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appColors.primaryColor,
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         title: Text(
           'Hengimaður',
@@ -51,7 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         elevation: 0,
         centerTitle: true,
-        backgroundColor: appColors.primaryColor,
+        backgroundColor: AppColors.primaryColor,
       ),
     );
   }
