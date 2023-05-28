@@ -13,17 +13,20 @@ class EndGameParameters {
   EndGameParameters(this.isWinner);
 }
 
+// Fyrsti skjárinn sem birtist þegar appið er opnað og þar sem
+// byrjað er að keyra leikinn í gang.
 class GameScreen extends StatefulWidget {
   static const String id = 'GameScreen';
 
   const GameScreen({Key? key}) : super(key: key);
 
+  // State-ið á Scaffoldinu
   @override
   _GameScreenState createState() => _GameScreenState();
 }
-
+// State-ið fyrir GameScreen
 class _GameScreenState extends State<GameScreen> {
-  // Listi af orðum fyrir leikinn
+  // Listi af orðum sem hægt er að fá í leiknum.
   List<String> words = [
     'Epli',
     'Banani',
@@ -39,15 +42,17 @@ class _GameScreenState extends State<GameScreen> {
   ];
 
   // Setjum random orðið okkar í streng
+  // Orðið sem var randomly valið fyrir leikinn
   String word = ''.toUpperCase();
 
   @override
   void initState() {
     super.initState();
-    // Veljum random orð úr listanum okkar
+    // Veljum random orð úr listanum okkar þegar leikurinn er spilaður.
     word = getRandomWord(words).toUpperCase();
   }
 
+  // Setjum upp fall sem nær í random orð úr words listanum.
   String getRandomWord(List<String> words) {
     Random random = Random();
     int randomIndex = random.nextInt(words.length);
@@ -56,6 +61,9 @@ class _GameScreenState extends State<GameScreen> {
 
   _navigateToEndScreen(
       BuildContext context, bool isWinner, remainingLives) async {
+    // Seinkum navigation á næst skjá um 1 sekúndu til að leyfa öllum undanfarandi aðgerðum að klára
+    // og svo leikmaður fái að sjá fullt orð sem hann vann með eða allan Hengimann ef hann tapaði
+    // áður en farið er með hann á loka skjáinn.
     await Future.delayed(Duration(seconds: 1));
 
     await Navigator.of(context).pushNamedAndRemoveUntil(
@@ -63,6 +71,8 @@ class _GameScreenState extends State<GameScreen> {
         arguments: EndGameParameters(isWinner));
   }
 
+  // Setjum upp fall sem heldur utan um stafina sem verið er að giska á í leiknum
+  // og sem setur þá fram í notendaviðmótinu.
   _guessLetters(BuildContext context, int remainingLives) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,9 +87,7 @@ class _GameScreenState extends State<GameScreen> {
           ),
         ),
 
-        // Smíðum núna widget fyrir földnu orðin
-        // Förum aftur í að byggja hengimaninn og bætum við breytu þar til að geyma
-        // staf og athuga hvort sá stafur sé í orðinu sem verið er að spila með
+        // Setjum fram orðið með "Row" sem verið er að giska á.
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: word
@@ -89,7 +97,7 @@ class _GameScreenState extends State<GameScreen> {
               .toList(),
         ),
 
-        // Setja fram þau líf sem leikmaður á eftir
+        // Setjum fram þau líf sem leikmaður á eftir í leiknum
         Text(
           'Þú átt: $remainingLives líf eftir',
           style: TextStyle(
@@ -99,7 +107,7 @@ class _GameScreenState extends State<GameScreen> {
           ),
         ),
 
-        // Setjum núna upp lyklaborðið með hjálp frá alphabet skránni
+        // Uppsetning á lyklaborði með hjálp frá alphabet skránni
         SizedBox(
           width: double.infinity,
           height: 240.0,
@@ -142,7 +150,8 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  // prufa
+  // Setjum upp fall til að halda utan um ferlið á leiknum og
+  // sem ákvarðar hvort leikmaður sé búinn að vinna eða tapa leiknum.
   _buildGameContent(BuildContext context) {
     int remainingLives = BuildHangman.maxTries - BuildHangman.tries;
 
@@ -164,7 +173,8 @@ class _GameScreenState extends State<GameScreen> {
 
     return _guessLetters(context, remainingLives);
   }
-
+  // Notum build method með Scaffold til að skilgreina uppsetninguna og útlitið á appinu,
+  // með öðrum orðum til að setja upp UI-ið fyrir leikinn.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,6 +191,7 @@ class _GameScreenState extends State<GameScreen> {
         centerTitle: true,
         backgroundColor: AppColors.primaryColor,
       ),
+      // Köllum í fallið _buildGameContent til að setja upp sjálfan leikinn.
       body: _buildGameContent(context),
     );
   }
