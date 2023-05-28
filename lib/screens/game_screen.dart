@@ -81,6 +81,8 @@ class _GameScreenState extends State<GameScreen> {
         Center(
           child: Stack(
             children: [
+              // Setjum upp Hengimanninn með því að bæta inn myndum á skjáinn,
+              // farandi eftir hvar leikmaður er staddur í leiknum (tries).
               for (int i = 0; i <= 9; i++)
                 hangmanPhoto(BuildHangman.tries >= i, 'assets/hangman_$i.png'),
             ],
