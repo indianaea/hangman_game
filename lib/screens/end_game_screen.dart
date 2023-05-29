@@ -18,7 +18,6 @@ class EndScreen extends StatelessWidget {
     // Resetta leikinn þegar ýtt er aftur á takkann "Spila leik"
     BuildHangman.tries = 0;
     BuildHangman.guessedLetters.clear();
-    //print('hallóo');
 
     Future.microtask(() {
       Navigator.of(context).pushNamedAndRemoveUntil(
