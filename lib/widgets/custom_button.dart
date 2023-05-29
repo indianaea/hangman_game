@@ -5,16 +5,16 @@ import 'package:hangman_game/constants/colors.dart';
 // og ákveðna aðgerð þegar smellt er á hann.
 class CustomButton extends StatelessWidget {
   final String text;
-  final VoidCallback onTab;
+  final VoidCallback onPressed;
 
-  CustomButton({required this.text, required this.onTab});
+  CustomButton({required this.text, required this.onPressed});
 
   // Skilgreinum build method sem skilar alltaf alveg eins takka (widget)
   // nema með þeim aðgerðum sem settar eru í hann og texta.
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: onTab,
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primaryColorDark,
           foregroundColor: Colors.white,

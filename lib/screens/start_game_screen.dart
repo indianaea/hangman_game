@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hangman_game/constants/colors.dart';
 import 'package:hangman_game/logic/build_hangman.dart';
 import 'package:hangman_game/screens/game_screen.dart';
+
+import '../widgets/custom_button.dart';
+import '../widgets/screen_container.dart';
 
 class StartScreen extends StatelessWidget {
   static const String id = 'StartScreen';
@@ -19,65 +21,56 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.primaryColor,
-      appBar: AppBar(
-        title: Text(
-          'Hengimaður',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24.0,
+    return ScreenContainer(
+      title: 'Hengimaður',
+      children: [
+        Transform.translate(
+          offset: Offset(0, -40.0), // Adjust the y-offset as needed
+          child: Image.asset(
+            'assets/front.png',
+            width: 400, // Adjust width as needed
+            height: 400, // Adjust height as needed
           ),
         ),
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: AppColors.primaryColor,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Transform.translate(
-              offset: Offset(0, -60.0), // Adjust the y-offset as needed
-              child: Image.asset(
-                'assets/front.png',
-                width: 400, // Adjust width as needed
-                height: 400, // Adjust height as needed
-              ),
-            ),
-            SizedBox(height: 20.0),
-            Text(
-              'Velkominn í leikinn Hengimann!',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                _selectPlayGame(context);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryColorDark,
-                foregroundColor: Colors.white,
-                textStyle: TextStyle(
-                  fontSize: 20.0,
+        Center(
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'Aðeins um leikinn:\n',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
+                TextSpan(
+                  text: 'Leikurinn snýst um að spilari fær random orð \nog reynir svo að giska á það orð áður en full \nmynd af Hengimanni er teiknuð upp. \nEf spilari nær ekki að giska á rétt orð \nfær hann Hengimann.\n',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                TextSpan(
+                  text: '\nÞú hefur 9 líf \nÞú hefur eina vísbendingu\nGangi þér vel!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              child: Text('Spila leik'),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        SizedBox(height: 20.0),
+        CustomButton(
+          text: 'Spila leik',
+          onPressed: () => _selectPlayGame(context),
+        ),
+      ],
     );
   }
 }

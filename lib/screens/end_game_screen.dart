@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hangman_game/constants/colors.dart';
 import 'package:hangman_game/screens/game_screen.dart';
+import 'package:hangman_game/widgets/screen_container.dart';
 import 'package:hangman_game/screens/start_game_screen.dart';
 import 'package:hangman_game/logic/build_hangman.dart';
+import 'package:hangman_game/widgets/custom_button.dart';
 
 class EndScreen extends StatelessWidget {
   static const String id = 'EndScreen';
@@ -19,18 +20,13 @@ class EndScreen extends StatelessWidget {
     BuildHangman.tries = 0;
     BuildHangman.guessedLetters.clear();
 
-    Future.microtask(() {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          GameScreen.id, (Route<dynamic> route) => false);
-    });
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        GameScreen.id, (Route<dynamic> route) => false);
   }
 
   void _goToStartScreen(BuildContext context) async {
-
-    Future.microtask(() {
       Navigator.of(context).pushNamedAndRemoveUntil(
           StartScreen.id, (Route<dynamic> route) => false);
-    });
   }
 
   @override
@@ -39,76 +35,27 @@ class EndScreen extends StatelessWidget {
         ? 'Þvílíkur snillingur! Þú vannst leikinn!'
         : 'Æi þú tapaðir! Endilega reyndu aftur!';
 
-    return Scaffold(
-      backgroundColor: AppColors.primaryColor,
-      appBar: AppBar(
-        title: Text(
-          'Hengimaður',
+    return ScreenContainer(
+      title: 'Hengimaður',
+      children: [
+        Text(
+          message,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 24.0,
+            fontSize: 22.0,
+            fontWeight: FontWeight.normal,
           ),
         ),
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: AppColors.primaryColor,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              message,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22.0,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                _resetGame(context);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryColorDark,
-                foregroundColor: Colors.white,
-                textStyle: TextStyle(
-                  fontSize: 20.0,
-                ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              child: Text('Spila leik aftur'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _goToStartScreen(context);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryColorDark,
-                foregroundColor: Colors.white,
-                textStyle: TextStyle(
-                  fontSize: 20.0,
-                ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              child: Text('Fara á upphafsskjá'),
-            ),
-          ],
+        SizedBox(height: 20.0),
+        CustomButton(
+          text: 'Spila leik aftur',
+          onPressed: () => _resetGame(context),
         ),
-      ),
+        CustomButton(
+          text: 'Fara á upphafsskjá',
+          onPressed: () => _goToStartScreen(context),
+        ),
+      ],
     );
   }
 }
