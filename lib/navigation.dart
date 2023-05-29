@@ -4,7 +4,9 @@ import 'package:hangman_game/screens/start_game_screen.dart';
 import 'package:hangman_game/screens/end_game_screen.dart';
 import 'package:flutter/material.dart';
 
-
+// Búum til klasa sem sér um route-ing í appinu og tekur inn
+// RouteSettings og notar aðferðina switch til að meðhöndla
+// mismunandi routes í gegnum appið.
 class AppRouter {
   Route ? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {

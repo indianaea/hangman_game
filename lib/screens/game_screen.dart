@@ -89,7 +89,8 @@ class _GameScreenState extends State<GameScreen> {
           ),
         ),
 
-        // Setjum fram orðið með "Row" sem verið er að giska á.
+        // Setjum fram orðið með "Row" sem verið er að giska á og náum í
+        // widgetið letter til sýna útlitið á því.
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: word
