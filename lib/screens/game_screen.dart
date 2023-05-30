@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'package:hangman_game/arguments/is_winner_argument.dart';
 import 'package:hangman_game/constants/colors.dart';
 import 'package:hangman_game/widgets/hangman_photo.dart';
 import 'package:hangman_game/logic/build_hangman.dart';
 import 'package:hangman_game/widgets/letters.dart';
 import 'package:hangman_game/constants/alphabet.dart';
+import 'package:hangman_game/widgets/hint_icon_button.dart';
+import '../widgets/alphabet_button.dart';
 import 'end_game_screen.dart';
-
-class EndGameParameters {
-  final bool isWinner;
-
-  EndGameParameters(this.isWinner);
-}
 
 // Fyrsti skjárinn sem birtist þegar appið er opnað og þar sem
 // byrjað er að keyra leikinn í gang.
@@ -24,56 +20,29 @@ class GameScreen extends StatefulWidget {
   @override
   _GameScreenState createState() => _GameScreenState();
 }
-// State-ið fyrir GameScreen
-class _GameScreenState extends State<GameScreen> {
-  // Listi af orðum sem hægt er að fá í leiknum.
-  List<String> words = [
-    'Epli',
-    'Banani',
-    'Sól',
-    'Bíll',
-    'Sokkur',
-    'Hamar',
-    'Tebolli',
-    'Bolti',
-    'Batterí',
-    'Útvarp',
-    'Ristavél'
-  ];
 
-  // Setjum random orðið okkar í streng
-  // Orðið sem var randomly valið fyrir leikinn
-  String word = ''.toUpperCase();
+class _GameScreenState extends State<GameScreen> {
+  late BuildHangman game;
 
   @override
   void initState() {
     super.initState();
-    // Veljum random orð úr listanum okkar þegar leikurinn er spilaður.
-    word = getRandomWord(words).toUpperCase();
+    game = BuildHangman();
   }
 
-  // Setjum upp fall sem nær í random orð úr words listanum.
-  String getRandomWord(List<String> words) {
-    Random random = Random();
-    int randomIndex = random.nextInt(words.length);
-    return words[randomIndex];
-  }
-
-  _navigateToEndScreen(
-      BuildContext context, bool isWinner, remainingLives) async {
+  _navigateToEndScreen(BuildContext context, bool isWinner) async {
     // Seinkum navigation á næst skjá um 1 sekúndu til að leyfa öllum undanfarandi aðgerðum að klára
     // og svo leikmaður fái að sjá fullt orð sem hann vann með eða allan Hengimann ef hann tapaði
     // áður en farið er með hann á loka skjáinn.
     await Future.delayed(Duration(seconds: 1));
-
     await Navigator.of(context).pushNamedAndRemoveUntil(
         EndScreen.id, (Route<dynamic> route) => false,
-        arguments: EndGameParameters(isWinner));
+        arguments: IsWinnerArgument(isWinner));
   }
 
   // Setjum upp fall sem heldur utan um stafina sem verið er að giska á í leiknum
   // og sem setur þá fram í notendaviðmótinu.
-  _guessLetters(BuildContext context, int remainingLives) {
+  _guessLetters(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -93,16 +62,16 @@ class _GameScreenState extends State<GameScreen> {
         // widgetið letter til sýna útlitið á því.
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: word
+          children: game.word
               .split('')
               .map((e) => letter(e.toUpperCase(),
-                  !BuildHangman.guessedLetters.contains(e.toUpperCase())))
+                  !game.guessedLetters.contains(e.toUpperCase())))
               .toList(),
         ),
 
         // Setjum fram þau líf sem leikmaður á eftir í leiknum
         Text(
-          'Þú átt: $remainingLives líf eftir',
+          'Þú átt: ${game.remainingLives()} líf eftir',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20.0,
@@ -120,31 +89,14 @@ class _GameScreenState extends State<GameScreen> {
             crossAxisSpacing: 8.0,
             padding: EdgeInsets.all(8.0),
             children: SetupAlphabet.icelandic_alphabet.map((e) {
-              return RawMaterialButton(
-                onPressed: BuildHangman.guessedLetters.contains(e)
-                    ? null
-                    : () {
-                        setState(() {
-                          BuildHangman.guessedLetters.add(e);
-                          if (!word.split('').contains(e.toUpperCase())) {
-                            BuildHangman.tries++;
-                          }
-                        });
-                      },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                fillColor: BuildHangman.guessedLetters.contains(e)
-                    ? Colors.black87
-                    : Colors.blueGrey,
-                child: Text(
-                  e,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              return AlphabetButton(
+                text: e,
+                onPressed: () {
+                  setState(() {
+                    game.guessLetter(e);
+                  });
+                },
+                isSelected: game.guessedLetters.contains(e),
               );
             }).toList(),
           ),
@@ -156,26 +108,16 @@ class _GameScreenState extends State<GameScreen> {
   // Setjum upp fall til að halda utan um ferlið á leiknum og
   // sem ákvarðar hvort leikmaður sé búinn að vinna eða tapa leiknum.
   _buildGameContent(BuildContext context) {
-    int remainingLives = BuildHangman.maxTries - BuildHangman.tries;
-
-    if (word
-        .split('')
-        .toSet()
-        .difference(BuildHangman.guessedLetters.toSet())
-        .isEmpty) {
-      // Leikmaður vinnur leikinn
+    if (game.isWinner() || game.isLoser()) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _navigateToEndScreen(context, true, remainingLives);
+        _navigateToEndScreen(context, game.isWinner());
       });
-    } else if (remainingLives <= 0) {
-      // Leikmaður tapar leiknum
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _navigateToEndScreen(context, false, remainingLives);
-      });
+      return _guessLetters(context);
+    } else {
+      return _guessLetters(context);
     }
-
-    return _guessLetters(context, remainingLives);
   }
+
   // Notum build method með Scaffold til að skilgreina uppsetninguna og útlitið á appinu,
   // með öðrum orðum til að setja upp UI-ið fyrir leikinn.
   @override
@@ -190,6 +132,7 @@ class _GameScreenState extends State<GameScreen> {
             fontSize: 24.0,
           ),
         ),
+        leading: BuildHangman.tries >= 2 ? HintIconButton(game: game) : null,
         elevation: 0,
         centerTitle: true,
         backgroundColor: AppColors.primaryColor,

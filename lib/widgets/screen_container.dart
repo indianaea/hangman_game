@@ -14,7 +14,7 @@ class ScreenContainer extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 24.0,
           ),

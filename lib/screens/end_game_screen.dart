@@ -2,24 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:hangman_game/screens/game_screen.dart';
 import 'package:hangman_game/widgets/screen_container.dart';
 import 'package:hangman_game/screens/start_game_screen.dart';
-import 'package:hangman_game/logic/build_hangman.dart';
 import 'package:hangman_game/widgets/custom_button.dart';
+import '../arguments/is_winner_argument.dart';
 
 class EndScreen extends StatelessWidget {
   static const String id = 'EndScreen';
 
-  final bool isWinner;
+  bool isWinner = true;
 
-  const EndScreen({
-    Key? key,
-    required this.isWinner,
-  }) : super(key: key);
+  EndScreen(IsWinnerArgument args) {
+    this.isWinner = args.isWinner;
+  }
 
   void _resetGame(BuildContext context) async {
-    // Resetta leikinn þegar ýtt er aftur á takkann "Spila leik"
-    BuildHangman.tries = 0;
-    BuildHangman.guessedLetters.clear();
-
     Navigator.of(context).pushNamedAndRemoveUntil(
         GameScreen.id, (Route<dynamic> route) => false);
   }
@@ -38,6 +33,14 @@ class EndScreen extends StatelessWidget {
     return ScreenContainer(
       title: 'Hengimaður',
       children: [
+        Transform.translate(
+          offset: Offset(0, -40.0), // Adjust the y-offset as needed
+          child: Image.asset(
+            'assets/end.png',
+            width: 400, // Adjust width as needed
+            height: 400, // Adjust height as needed
+          ),
+        ),
         Text(
           message,
           style: TextStyle(
