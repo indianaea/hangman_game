@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Klasi sem sýnir alla takkana með öllum stöfunum á í leiknum
 class AlphabetButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
@@ -11,6 +12,7 @@ class AlphabetButton extends StatelessWidget {
     this.isSelected = false,
   });
 
+  // Ui-ið sett upp fyrir alla stafa takkana á leik skjánum
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(

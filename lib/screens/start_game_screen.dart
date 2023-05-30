@@ -3,16 +3,21 @@ import 'package:hangman_game/screens/game_screen.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/screen_container.dart';
 
+// Klasi sem sýnir fyrsta skjáinn sem birtist þegar appið er opnað og þar sem
+// byrjað er að keyra leikinn í gang.
 class StartScreen extends StatelessWidget {
   static const String id = 'StartScreen';
 
   const StartScreen({Key? key}) : super(key: key);
 
+  // Fall sem fer með leikmann á næsta skjá - þar sem leikurinn hefst
   void _selectPlayGame(BuildContext context) {
     Navigator.of(context).pushNamedAndRemoveUntil(
         GameScreen.id, (Route<dynamic> route) => false);
   }
 
+  // UI-ið sett upp fyrir fyrsta skjáinn þar sem leiðbeiningar fyrir
+  // leikmann koma fram og takki til að byrja spila leikinn.
   @override
   Widget build(BuildContext context) {
     return ScreenContainer(

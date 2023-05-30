@@ -5,13 +5,16 @@ import 'package:hangman_game/screens/game_screen.dart';
 import 'arguments/is_winner_argument.dart';
 import 'screens/end_game_screen.dart';
 
+// Main fallið til að keyra appið/leikinn
 void main() {
   runApp(MyApp());
 }
 
+// Búuum til MyApp sem er StatelessWidget og er rótin að appinu
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
 
+  // UI-ið sett upp fyrir MaterialApp sem er widget sem getur haldið utan um
+  // mörg önnur widget í appinu sem notuð eru fyrir Material Design Applications.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,6 +37,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// Ui-ið sett upp með Scaffoldi
 @override
 Widget build(BuildContext context) {
   return Scaffold(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hangman_game/constants/colors.dart';
 
-// Búum til sérsniðinn takka sem tekur inn texta sem streng
+// Fall sem býr til sérsniðinn takka sem tekur inn texta sem streng
 // og ákveðna aðgerð þegar smellt er á hann.
 class CustomButton extends StatelessWidget {
   final String text;

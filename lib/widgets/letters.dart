@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hangman_game/constants/colors.dart';
 
-// Búum til fall sem býr til widget sem táknar stafina í orðinu
+// Fall sem býr til widget sem táknar stafina í orðinu
 // sem verið er að spila með. Fallið tekur inn breyturnar streng
 // og boolean til að ákvarða hvort eigi að sýna staf í orðinu eða ekki.
 Widget letter(String character, bool hidden) {

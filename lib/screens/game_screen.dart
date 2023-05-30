@@ -9,8 +9,7 @@ import 'package:hangman_game/widgets/hint_icon_button.dart';
 import '../widgets/alphabet_button.dart';
 import 'end_game_screen.dart';
 
-// Fyrsti skjárinn sem birtist þegar appið er opnað og þar sem
-// byrjað er að keyra leikinn í gang.
+// Klasi sem sýnir leik skjáinn þar sem sjálfur leikurinn fer fram á
 class GameScreen extends StatefulWidget {
   static const String id = 'GameScreen';
 
@@ -21,6 +20,7 @@ class GameScreen extends StatefulWidget {
   _GameScreenState createState() => _GameScreenState();
 }
 
+//
 class _GameScreenState extends State<GameScreen> {
   late BuildHangman game;
 
@@ -30,18 +30,19 @@ class _GameScreenState extends State<GameScreen> {
     game = BuildHangman();
   }
 
+  // Fall sem seinkar navigation á næst skjá um 1 sekúndu til að leyfa öllum
+  // undanfarandi aðgerðum að klára og svo leikmaður fái að sjá fullt orð sem
+  // hann vann með eða allan Hengimann ef hann tapaði áður en farið er með
+  // hann á loka skjáinn.
   _navigateToEndScreen(BuildContext context, bool isWinner) async {
-    // Seinkum navigation á næst skjá um 1 sekúndu til að leyfa öllum undanfarandi aðgerðum að klára
-    // og svo leikmaður fái að sjá fullt orð sem hann vann með eða allan Hengimann ef hann tapaði
-    // áður en farið er með hann á loka skjáinn.
     await Future.delayed(Duration(seconds: 1));
     await Navigator.of(context).pushNamedAndRemoveUntil(
         EndScreen.id, (Route<dynamic> route) => false,
         arguments: IsWinnerArgument(isWinner));
   }
 
-  // Setjum upp fall sem heldur utan um stafina sem verið er að giska á í leiknum
-  // og sem setur þá fram í notendaviðmótinu.
+  // Fall sem heldur utan um stafina sem verið er að giska á
+  // í leiknum og sem setur þá fram í notendaviðmótinu.
   _guessLetters(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,8 +106,9 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  // Setjum upp fall til að halda utan um ferlið á leiknum og
-  // sem ákvarðar hvort leikmaður sé búinn að vinna eða tapa leiknum.
+  // Fall sem heldur utan um ferlið á leiknum og sem ákvarðar hvort
+  // leikmaður sé búinn að vinna eða tapa leiknum. Og sem fer síðan með
+  // leikmann á næsta skjá.
   _buildGameContent(BuildContext context) {
     if (game.isWinner() || game.isLoser()) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -118,8 +120,9 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  // Notum build method með Scaffold til að skilgreina uppsetninguna og útlitið á appinu,
-  // með öðrum orðum til að setja upp UI-ið fyrir leikinn.
+  // Notum build method með Scaffold til að skilgreina uppsetninguna
+  // og útlitið á appinu,með öðrum orðum til að setja upp UI-ið
+  // fyrir leikinn.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

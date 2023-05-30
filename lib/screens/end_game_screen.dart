@@ -5,25 +5,34 @@ import 'package:hangman_game/screens/start_game_screen.dart';
 import 'package:hangman_game/widgets/custom_button.dart';
 import '../arguments/is_winner_argument.dart';
 
+// Klasi sem sýnir loka skjáinn í leiknum þar sem niðurstöðurnar hvort
+// leikmaður vann eða tapaði koma fram á.
 class EndScreen extends StatelessWidget {
   static const String id = 'EndScreen';
 
   bool isWinner = true;
 
+  // Fall sem tekur inn IsWinnerArgument til að ákvarða state-ið á leiknum
   EndScreen(IsWinnerArgument args) {
     this.isWinner = args.isWinner;
   }
 
+  // Aðferð til að reseta leikinn og fara á leik skjáinn og spila
+  // leikinn aftur.
   void _resetGame(BuildContext context) async {
     Navigator.of(context).pushNamedAndRemoveUntil(
         GameScreen.id, (Route<dynamic> route) => false);
   }
 
+  // Aðferð til að fara tilbaka á upphafskjá ef leikmaður velur það
   void _goToStartScreen(BuildContext context) async {
       Navigator.of(context).pushNamedAndRemoveUntil(
           StartScreen.id, (Route<dynamic> route) => false);
   }
 
+  // UI-ið sett upp fyrir enda skjáinn með widgetinu ScreenContainer
+  // þar sem leikmaður fær þau skilaboð hvort hann vann eða tapaði leiknum
+  // og fær valmöguleikana að spila aftur eða fara á upphafskjá.
   @override
   Widget build(BuildContext context) {
     String message = isWinner

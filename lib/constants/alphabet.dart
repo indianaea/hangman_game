@@ -1,4 +1,4 @@
-//Búum til íslenska stafróið til að sýna það á leik skjánnum.
+//Búum til íslenska stafróið til að sýna það á leik skjánum.
 
 class SetupAlphabet {
   static List<String> icelandic_alphabet = [
