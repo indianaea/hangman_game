@@ -8,7 +8,7 @@ class ScreenContainer extends StatelessWidget {
 
   ScreenContainer({required this.title, required this.children});
 
-  // UI-ið sett upp fyrir grunn skjá mynd, sem hægt er að nota svo
+  // UI-ið sett upp fyrir grunn skjámynd, sem hægt er að nota svo
   // á fleiri en einum skjá í gegnum appið.
   @override
   Widget build(BuildContext context) {

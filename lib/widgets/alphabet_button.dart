@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-// Klasi sem sýnir takka með staf á og tekur inn methodið onPressed
+// Klasi sem sýnir takka með staf á og tekur inn methodið onPressed,
+// texta sem streng og boolean ef smellt er á takka.
 class AlphabetButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
@@ -12,7 +13,7 @@ class AlphabetButton extends StatelessWidget {
     this.isSelected = false,
   });
 
-  // Ui-ið sett upp fyrir hvern takka með staf á leik skjánum
+  // Ui-ið sett upp fyrir hvern takka með staf á leikskjánum
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
