@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:hangman_game/constants/colors.dart';
-import 'package:hangman_game/logic/build_hangman.dart';
 
 // Fall sem býr til hint takkann þegar leikmaður er að spila leikinn
 class HintIconButton extends StatelessWidget {
-  final BuildHangman game;
+  final String hint;
 
-  HintIconButton({required this.game});
+  HintIconButton({required this.hint});
 
   // UI-ið sett upp fyrir hint takkann sem birtist í 3 sekúndur eftir
-  // að leikmaður hefur ýtt á það.
+  // að leikmaður hefur ýtt á hann.
   @override
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.question_mark, color: AppColors.pinkColor, size: 30),
       onPressed: () {
-        final String hint = game.getHint();
         showDialog(
           context: context,
           builder: (BuildContext context) {

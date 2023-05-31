@@ -20,10 +20,11 @@ class GameScreen extends StatefulWidget {
   _GameScreenState createState() => _GameScreenState();
 }
 
-//
+// Klasi sem tekur Game Screen sem state
 class _GameScreenState extends State<GameScreen> {
   late BuildHangman game;
 
+  // Frumstillum gildi
   @override
   void initState() {
     super.initState();
@@ -32,8 +33,7 @@ class _GameScreenState extends State<GameScreen> {
 
   // Fall sem seinkar navigation á næst skjá um 1 sekúndu til að leyfa öllum
   // undanfarandi aðgerðum að klára og svo leikmaður fái að sjá fullt orð sem
-  // hann vann með eða allan Hengimann ef hann tapaði áður en farið er með
-  // hann á loka skjáinn.
+  // hann vann með eða allan Hengimann ef hann tapaði.
   _navigateToEndScreen(BuildContext context, bool isWinner) async {
     await Future.delayed(Duration(seconds: 1));
     await Navigator.of(context).pushNamedAndRemoveUntil(
@@ -114,14 +114,12 @@ class _GameScreenState extends State<GameScreen> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _navigateToEndScreen(context, game.isWinner());
       });
-      return _guessLetters(context);
-    } else {
-      return _guessLetters(context);
     }
+    return _guessLetters(context);
   }
 
   // Notum build method með Scaffold til að skilgreina uppsetninguna
-  // og útlitið á appinu,með öðrum orðum til að setja upp UI-ið
+  // og útlitið á appinu, með öðrum orðum til að setja upp UI-ið
   // fyrir leikinn.
   @override
   Widget build(BuildContext context) {
@@ -135,12 +133,11 @@ class _GameScreenState extends State<GameScreen> {
             fontSize: 24.0,
           ),
         ),
-        leading: BuildHangman.tries >= 2 ? HintIconButton(game: game) : null,
+        leading: BuildHangman.tries >= 2 ? HintIconButton(hint: game.getHint()) : null,
         elevation: 0,
         centerTitle: true,
         backgroundColor: AppColors.primaryColor,
       ),
-      // Köllum í fallið _buildGameContent til að setja upp sjálfan leikinn.
       body: _buildGameContent(context),
     );
   }

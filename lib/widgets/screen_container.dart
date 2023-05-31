@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hangman_game/constants/colors.dart';
 
-// Búum til StatelessWidget sem setur upp grunn fyrir skjá mynd
+// Klasi sem setur upp grunninn fyrir skjá mynd
 class ScreenContainer extends StatelessWidget {
   final String title;
   final List<Widget> children;

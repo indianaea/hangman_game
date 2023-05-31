@@ -12,7 +12,8 @@ class EndScreen extends StatelessWidget {
 
   bool isWinner = true;
 
-  // Fall sem tekur inn IsWinnerArgument til að ákvarða state-ið á leiknum
+  // Constructor sem tekur inn IsWinnerArgument til að ákvarða state-ið
+  // á leiknum.
   EndScreen(IsWinnerArgument args) {
     this.isWinner = args.isWinner;
   }
@@ -30,9 +31,10 @@ class EndScreen extends StatelessWidget {
           StartScreen.id, (Route<dynamic> route) => false);
   }
 
-  // UI-ið sett upp fyrir enda skjáinn með widgetinu ScreenContainer
-  // þar sem leikmaður fær þau skilaboð og mynd hvort hann vann eða tapaði
-  // leiknum og fær valmöguleikana að spila aftur eða fara á upphafskjá.
+  // UI-ið sett upp fyrir enda skjáinn þar sem notast er við widgetin
+  // ScreenContainer og CustomButton þar sem leikmaður fær þau skilaboð
+  // og þá mynd hvort hann vann eða tapaði leiknum og fær valmöguleikana að
+  // spila aftur eða fara á upphafskjá.
   @override
   Widget build(BuildContext context) {
     String message = isWinner
@@ -40,8 +42,8 @@ class EndScreen extends StatelessWidget {
         : 'Æi þú tapaðir! Endilega reyndu aftur!';
 
     String imageAsset = isWinner
-        ? 'assets/winner.png' // update with the path to your winner image
-        : 'assets/loser.png'; // update with the path to your loser image
+        ? 'assets/winner.png'
+        : 'assets/loser.png';
 
     return ScreenContainer(
       title: 'Hengimaður',
@@ -66,10 +68,14 @@ class EndScreen extends StatelessWidget {
         CustomButton(
           text: 'Spila leik aftur',
           onPressed: () => _resetGame(context),
+          buttonWidth: 215,
+          buttonHeight: 40,
         ),
         CustomButton(
           text: 'Fara á upphafsskjá',
           onPressed: () => _goToStartScreen(context),
+          buttonWidth: 215,
+          buttonHeight: 40,
         ),
       ],
     );

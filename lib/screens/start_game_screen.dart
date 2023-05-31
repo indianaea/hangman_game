@@ -3,8 +3,7 @@ import 'package:hangman_game/screens/game_screen.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/screen_container.dart';
 
-// Klasi sem sýnir fyrsta skjáinn sem birtist þegar appið er opnað og þar sem
-// byrjað er að keyra leikinn í gang.
+// Klasi sem sýnir fyrsta skjáinn sem birtist þegar appið er opnað
 class StartScreen extends StatelessWidget {
   static const String id = 'StartScreen';
 
@@ -75,6 +74,8 @@ class StartScreen extends StatelessWidget {
           child: CustomButton(
             text: 'Spila leik',
             onPressed: () => _selectPlayGame(context),
+            buttonWidth: 140,
+            buttonHeight: 40,
           ),
         ),
       ],

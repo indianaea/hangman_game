@@ -44,7 +44,8 @@ class BuildHangman {
     word = getRandomWord(words).toUpperCase();
   }
 
-  // Fall sem skilar random orði frá orða-listanum
+  // Fall sem skilar random orði frá orða-listanum og setur locationIndex
+  // svo hægt sé að finna rétta hintið m.v. núverandi orð.
   String getRandomWord(List<String> words) {
     Random random = Random();
     int randomIndex = random.nextInt(words.length);
@@ -58,8 +59,10 @@ class BuildHangman {
     tries = 0;
   }
 
-  // Fall sem skilar true ef giskaður stafur er í orðinu sem spilað er með
-  // og sem skilar false ef giskað er á vitlausan staf.
+  // Fall sem athugar hvort giskaður stafur sé í orðinu sem verið er að
+  // spila með.
+  // Hann skilar false ef leikmaður er búinn með giskin sín og ef giskaður
+  // stafur er ekki í orðinu, annars skilar hann true.
   bool guessLetter(String letter) {
     if (tries < maxTries) {
       guessedLetters.add(letter);
