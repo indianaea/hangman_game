@@ -31,13 +31,17 @@ class EndScreen extends StatelessWidget {
   }
 
   // UI-ið sett upp fyrir enda skjáinn með widgetinu ScreenContainer
-  // þar sem leikmaður fær þau skilaboð hvort hann vann eða tapaði leiknum
-  // og fær valmöguleikana að spila aftur eða fara á upphafskjá.
+  // þar sem leikmaður fær þau skilaboð og mynd hvort hann vann eða tapaði
+  // leiknum og fær valmöguleikana að spila aftur eða fara á upphafskjá.
   @override
   Widget build(BuildContext context) {
     String message = isWinner
         ? 'Þvílíkur snillingur! Þú vannst leikinn!'
         : 'Æi þú tapaðir! Endilega reyndu aftur!';
+
+    String imageAsset = isWinner
+        ? 'assets/winner.png' // update with the path to your winner image
+        : 'assets/loser.png'; // update with the path to your loser image
 
     return ScreenContainer(
       title: 'Hengimaður',
@@ -45,7 +49,7 @@ class EndScreen extends StatelessWidget {
         Transform.translate(
           offset: Offset(0, -40.0), // Adjust the y-offset as needed
           child: Image.asset(
-            'assets/end.png',
+            imageAsset,
             width: 400, // Adjust width as needed
             height: 400, // Adjust height as needed
           ),
