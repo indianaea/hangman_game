@@ -60,9 +60,8 @@ class BuildHangman {
   }
 
   // Fall sem athugar hvort giskaður stafur sé í orðinu sem verið er að
-  // spila með.
-  // Hann skilar false ef leikmaður er búinn með giskin sín og ef giskaður
-  // stafur er ekki í orðinu, annars skilar hann true.
+  // spila með.Hann skilar false ef leikmaður er búinn með giskin sín og
+  // ef giskaður stafur er ekki í orðinu, annars skilar hann true.
   bool guessLetter(String letter) {
     if (tries < maxTries) {
       guessedLetters.add(letter);
