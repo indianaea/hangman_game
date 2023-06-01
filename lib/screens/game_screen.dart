@@ -36,10 +36,13 @@ class _GameScreenState extends State<GameScreen> {
   // hann vann með eða allan Hengimann ef hann tapaði.
   _navigateToEndScreen(BuildContext context, bool isWinner) async {
     await Future.delayed(Duration(seconds: 1));
-    await Navigator.of(context).pushNamedAndRemoveUntil(
-        EndScreen.id, (Route<dynamic> route) => false,
-        arguments: IsWinnerArgument(isWinner));
+    if (mounted) {
+      await Navigator.of(context).pushNamedAndRemoveUntil(
+          EndScreen.id, (Route<dynamic> route) => false,
+          arguments: IsWinnerArgument(isWinner));
+    }
   }
+
 
   // Fall sem er notað til að setja fram viðmótið (UI-ið) á leikskjánum eftir
   // því hvernig leikurinn þróast.

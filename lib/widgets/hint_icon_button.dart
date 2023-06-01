@@ -7,8 +7,9 @@ class HintIconButton extends StatelessWidget {
 
   HintIconButton({required this.hint});
 
-  // UI-ið sett upp fyrir hint takkann sem birtist í 3 sekúndur eftir
-  // að leikmaður hefur ýtt á hann.
+  // UI-ið sett upp fyrir hint takkann sem birtist þegar leikmaður ýtir á
+  // hann og lokast ef leikmaður ýtir á x-ið í horninu eða annarsstaðar
+  // á skjáinn.
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -17,24 +18,39 @@ class HintIconButton extends StatelessWidget {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            Future.delayed(Duration(seconds: 3), () {
-              Navigator.of(context).pop(true);
-            });
             return AlertDialog(
               backgroundColor: Colors.transparent,
-              content: Container(
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: AppColors.pinkColor,
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-                child: ConstrainedBox(
-                  constraints:
-                  BoxConstraints(maxHeight: 200, maxWidth: 200),
-                  child: Center(
-                    child: Text(hint),
+              content: Stack(
+                alignment: AlignmentDirectional.topEnd,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        color: AppColors.pinkColor,
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxHeight: 200, maxWidth: 200),
+                        child: Center(
+                          child: Text(hint),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Icon(Icons.close, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
             );
           },
