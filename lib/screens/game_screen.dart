@@ -41,8 +41,8 @@ class _GameScreenState extends State<GameScreen> {
         arguments: IsWinnerArgument(isWinner));
   }
 
-  // Fall sem er notað til að setja fram viðmótið á leikskjánum eftir því
-  // hvernig leikurinn þróast.
+  // Fall sem er notað til að setja fram viðmótið (UI-ið) á leikskjánum eftir
+  // því hvernig leikurinn þróast.
   _guessLetters(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,7 +52,7 @@ class _GameScreenState extends State<GameScreen> {
           child: Stack(
             children: [
               // Setjum upp Hengimanninn með því að bæta inn myndum á skjáinn,
-              // farandi eftir hvar leikmaður er staddur í leiknum (tries).
+              // farandi eftir hvernig leikmanni gengur í leiknum (tries).
               for (int i = 0; i <= 9; i++)
                 hangmanPhoto(BuildHangman.tries >= i, 'assets/hangman_$i.png'),
             ],
@@ -135,7 +135,9 @@ class _GameScreenState extends State<GameScreen> {
             fontSize: 24.0,
           ),
         ),
-        leading: BuildHangman.tries >= 2 ? HintIconButton(hint: game.getHint()) : null,
+        leading: BuildHangman.tries >= 2
+            ? HintIconButton(hint: game.getHint())
+            : null,
         elevation: 0,
         centerTitle: true,
         backgroundColor: AppColors.primaryColor,

@@ -33,8 +33,8 @@ class EndScreen extends StatelessWidget {
 
   // UI-ið sett upp fyrir enda skjáinn þar sem notast er við widgetin
   // ScreenContainer og CustomButton þar sem leikmaður fær þau skilaboð
-  // og þá mynd hvort hann vann eða tapaði leiknum og fær valmöguleikana að
-  // spila aftur eða fara á upphafskjá.
+  // og þá mynd eftir því hvort hann vann eða tapaði leiknum og fær
+  // valmöguleikana að spila aftur eða fara á upphafskjá.
   @override
   Widget build(BuildContext context) {
     String message = isWinner
@@ -61,16 +61,17 @@ class EndScreen extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontSize: 22.0,
-            fontWeight: FontWeight.normal,
+            fontWeight: FontWeight.w400,
           ),
         ),
-        SizedBox(height: 20.0),
+        SizedBox(height: 26.0),
         CustomButton(
           text: 'Spila leik aftur',
           onPressed: () => _resetGame(context),
           buttonWidth: 215,
           buttonHeight: 40,
         ),
+        SizedBox(height: 7),
         CustomButton(
           text: 'Fara á upphafsskjá',
           onPressed: () => _goToStartScreen(context),
