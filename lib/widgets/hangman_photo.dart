@@ -7,8 +7,8 @@ Widget hangmanPhoto(bool visible, String path){
   return Visibility(
       visible: visible,
       child: Container(
-        width: 250,
-        height: 250,
+        width: 270,
+        height: 270,
         child: Image.asset(path),
       )
   );
