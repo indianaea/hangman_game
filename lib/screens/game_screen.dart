@@ -43,7 +43,6 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-
   // Fall sem er notað til að setja fram viðmótið (UI-ið) á leikskjánum eftir
   // því hvernig leikurinn þróast.
   _guessLetters(BuildContext context) {
