@@ -7,8 +7,8 @@ class HintIconButton extends StatelessWidget {
 
   HintIconButton({required this.hint});
 
-  // UI-ið sett upp fyrir hint takkann sem birtist þegar leikmaður ýtir á
-  // hann og lokast ef leikmaður ýtir á x-ið í horninu eða annarsstaðar
+  // UI-ið sett upp fyrir hint takkann sem birtir hintið þegar leikmaður ýtir
+  // á hann og lokast ef leikmaður ýtir á x-ið í horninu eða annarsstaðar
   // á skjáinn.
   @override
   Widget build(BuildContext context) {
