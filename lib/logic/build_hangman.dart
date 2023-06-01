@@ -22,6 +22,9 @@ class BuildHangman {
     'Batterí',
     'Útvarp',
     'Ristavél',
+    'Þyrla',
+    'Sveppur',
+    'Ugla',
   ];
 
   List<String> hintText = [
@@ -35,7 +38,10 @@ class BuildHangman {
     'Það er hægt að sparka í þetta og kasta',
     'Þetta gefur mörgum dauðum hlutum líf',
     'Ótrúlegur hlutur sem nær sambandi við margt',
-    'Hart brauð'
+    'Hart brauð',
+    'Þvílíkt apparat sem flýgur með þig',
+    'Ég ætla fá pizzu með pepp og ?',
+    'Dýr sem kom oft fram í Harry Potter',
   ];
 
   // Fall sem resetar leikinn og sem velur random orð
@@ -60,7 +66,7 @@ class BuildHangman {
   }
 
   // Fall sem athugar hvort giskaður stafur sé í orðinu sem verið er að
-  // spila með.Hann skilar false ef leikmaður er búinn með giskin sín og
+  // spila með. Hann skilar false ef leikmaður er búinn með giskin sín og
   // ef giskaður stafur er ekki í orðinu, annars skilar hann true.
   bool guessLetter(String letter) {
     if (tries < maxTries) {
