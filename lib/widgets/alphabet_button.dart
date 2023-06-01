@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hangman_game/constants/colors.dart';
 
 // Klasi sem sýnir takka með staf á og tekur inn methodið onPressed,
 // texta sem streng og boolean ef smellt er á takka.
@@ -29,7 +30,7 @@ class AlphabetButton extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      fillColor: isSelected ? Colors.black87 : Colors.blueGrey,
+      fillColor: isSelected ? AppColors.pinkColor : Colors.blueGrey,
     );
   }
 }
