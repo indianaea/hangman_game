@@ -12,7 +12,7 @@ class HintIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.question_mark, color: AppColors.pinkColor, size: 30),
+      icon: Icon(Icons.question_mark, color: AppColors.pinkColor, size: 34),
       onPressed: () {
         showDialog(
           context: context,

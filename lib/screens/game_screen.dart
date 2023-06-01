@@ -20,7 +20,7 @@ class GameScreen extends StatefulWidget {
   _GameScreenState createState() => _GameScreenState();
 }
 
-// Klasi sem tekur Game Screen sem state
+// Klasi sem tekur GameScreen sem state
 class _GameScreenState extends State<GameScreen> {
   late BuildHangman game;
 
@@ -41,8 +41,8 @@ class _GameScreenState extends State<GameScreen> {
         arguments: IsWinnerArgument(isWinner));
   }
 
-  // Fall sem heldur utan um stafina sem verið er að giska á
-  // í leiknum og sem setur þá fram í notendaviðmótinu.
+  // Fall sem er notað til að setja fram viðmótið á leikskjánum eftir því
+  // hvernig leikurinn þróast.
   _guessLetters(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +59,7 @@ class _GameScreenState extends State<GameScreen> {
           ),
         ),
 
-        // Setjum fram orðið með "Row" sem verið er að giska á og náum í
+        // Setjum fram orðið sem leikmaður er að reyna giska á og náum í
         // widgetið letter til sýna útlitið á því.
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -80,7 +80,8 @@ class _GameScreenState extends State<GameScreen> {
           ),
         ),
 
-        // Uppsetning á lyklaborði með hjálp frá alphabet skránni
+        // Uppsetning á lyklaborði á skjánum með hjálp frá
+        // klasanum SetupAlphabet.
         SizedBox(
           width: double.infinity,
           height: 240.0,
@@ -106,9 +107,10 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  // Fall sem heldur utan um ferlið á leiknum og sem ákvarðar hvort
-  // leikmaður sé búinn að vinna eða tapa leiknum. Og sem fer síðan með
-  // leikmann á næsta skjá.
+  // Fall sem heldur utan um ferlið á leiknum og sem athugar hvort
+  // leikmaður sé búinn að vinna eða tapa - og fer síðan með
+  // leikmann á næsta skjá ef leikurinn hefur endað. Annars heldur hann
+  // áfram að skila viðmótinu fyrir leikskjáinn.
   _buildGameContent(BuildContext context) {
     if (game.isWinner() || game.isLoser()) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -119,8 +121,8 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   // Notum build method með Scaffold til að skilgreina uppsetninguna
-  // og útlitið á appinu, með öðrum orðum til að setja upp UI-ið
-  // fyrir leikinn.
+  // og útlitið á appinu og til að setja fram hintið sem birtist efst
+  // á skjá eftir 2 rangar gisk tilraunir.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
